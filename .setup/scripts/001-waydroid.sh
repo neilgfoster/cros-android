@@ -33,5 +33,16 @@ if [[ $install_waydroid =~ ^[Yy]$ ]]; then
     sudo ln -sf $f-$LLVM_VERSION /usr/bin/$f
   done
 
+  # Navigate to the correct directory and clone
+  folders=(".setup" "cros-android" "neilgfoster")
+  for folder in "${folders[@]}"; do
+    if [ "$(basename "$PWD")" = "$folder" ]; then
+      cd ..
+    fi
+  done
+  mkdir -p "chromiumos"
+  cd "chromiumos"
+  git clone https://chromium.googlesource.com/chromiumos/third_party/kernel cros-kernel -b chromeos-6.6 --depth=1
+  cd cros-kernel
 
 fi
