@@ -1,9 +1,11 @@
 #!/bin/bash
 # https://gist.github.com/alexsch01/6dab644fc8348a6874098e53377ccc98
 
-
 # Error handling
 set -e
+
+# Set kernel version variable
+KERNEL_VERSION="chromeos-6.6"
 
 # Prompt for install
 echo
@@ -32,9 +34,6 @@ if [[ $install_waydroid =~ ^[Yy]$ ]]; then
   for f in clang clang++ ld.lld llvm-objdump llvm-ar llvm-nm llvm-strip llvm-objcopy llvm-readelf; do
     sudo ln -sf $f-$LLVM_VERSION /usr/bin/$f
   done
-
-  # Set kernel version variable
-  KERNEL_VERSION="chromeos-6.6"
 
   # Navigate to the correct directory and clone
   folders=(".setup" "cros-android" "cros-kernel" "neilgfoster" "chromiumos")
