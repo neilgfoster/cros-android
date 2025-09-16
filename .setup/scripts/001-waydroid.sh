@@ -33,6 +33,9 @@ if [[ $install_waydroid =~ ^[Yy]$ ]]; then
     sudo ln -sf $f-$LLVM_VERSION /usr/bin/$f
   done
 
+  # Set kernel version variable
+  KERNEL_VERSION="chromeos-6.6"
+
   # Navigate to the correct directory and clone
   folders=(".setup" "cros-android" "cros-kernel" "neilgfoster" "chromiumos")
   for folder in "${folders[@]}"; do
@@ -43,10 +46,10 @@ if [[ $install_waydroid =~ ^[Yy]$ ]]; then
   mkdir -p "chromiumos"
   cd "chromiumos"
   if [ ! -d "cros-kernel" ]; then
-    git clone https://chromium.googlesource.com/chromiumos/third_party/kernel cros-kernel -b chromeos-6.6 --depth=1
+    git clone https://chromium.googlesource.com/chromiumos/third_party/kernel cros-kernel
   fi
   cd cros-kernel
   git pull
-  git checkout chromeos-6.6
+  git checkout "$KERNEL_VERSION"
 
 fi
