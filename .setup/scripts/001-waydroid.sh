@@ -45,10 +45,18 @@ if [[ $install_waydroid =~ ^[Yy]$ ]]; then
   mkdir -p "chromiumos"
   cd "chromiumos"
   if [ ! -d "cros-kernel" ]; then
-    git clone https://chromium.googlesource.com/chromiumos/third_party/kernel cros-kernel
+    git clone https://chromium.googlesource.com/chromiumos/third_party/kernel cros-kernel -b "$KERNEL_VERSION" --depth=1
   fi
   cd cros-kernel
-  git pull
-  git checkout "$KERNEL_VERSION"
+
+  # Prepare the kernel configuration
+  CHROMEOS_KERNEL_FAMILY=termina ./chromeos/scripts/prepareconfig container-vm-x86_64
+  make LLVM=1 LLVM_IAS=1 olddefconfig
+
+  echo -e "${YELLOW}Press <Enter> to continue:${NC}"
+  read -r dummy < /dev/tty
+
+  # Enable Binder IPC support
+  # make LLVM=1 LLVM_IAS=1 menuconfig 
 
 fi
