@@ -53,6 +53,7 @@ if [[ $install_waydroid =~ ^[Yy]$ ]]; then
   CHROMEOS_KERNEL_FAMILY=termina ./chromeos/scripts/prepareconfig container-vm-x86_64
   make LLVM=1 LLVM_IAS=1 olddefconfig
 
+  echo -e "${YELLOW}${PWD}/make LLVM=1 LLVM_IAS=1 menuconfig ${NC}"
   echo -e "${YELLOW}Press <Enter> to continue:${NC}"
   read -r dummy < /dev/tty
 
