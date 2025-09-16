@@ -1,5 +1,5 @@
 
-# cros-base
+# cros-android
 
 **cros-base** is a template repository for initializing and configuring a ChromeOS development environment. It provides a standardized structure, essential setup scripts, and configuration files that can be reused across multiple projects.
 
