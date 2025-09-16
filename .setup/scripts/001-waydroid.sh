@@ -34,7 +34,7 @@ if [[ $install_waydroid =~ ^[Yy]$ ]]; then
   done
 
   # Navigate to the correct directory and clone
-  folders=(".setup" "cros-android" "neilgfoster")
+  folders=(".setup" "cros-android" "cros-kernel" "neilgfoster" "chromiumos")
   for folder in "${folders[@]}"; do
     if [ "$(basename "$PWD")" = "$folder" ]; then
       cd ..
@@ -42,7 +42,11 @@ if [[ $install_waydroid =~ ^[Yy]$ ]]; then
   done
   mkdir -p "chromiumos"
   cd "chromiumos"
-  git clone https://chromium.googlesource.com/chromiumos/third_party/kernel cros-kernel -b chromeos-6.6 --depth=1
+  if [ ! -d "cros-kernel" ]; then
+    git clone https://chromium.googlesource.com/chromiumos/third_party/kernel cros-kernel -b chromeos-6.6 --depth=1
+  fi
   cd cros-kernel
+  git pull
+  git checkout chromeos-6.6
 
 fi
