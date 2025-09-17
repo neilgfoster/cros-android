@@ -56,19 +56,29 @@ if ! zgrep -q 'CONFIG_ANDROID_BINDERFS=y' /proc/config.gz; then
     CHROMEOS_KERNEL_FAMILY=termina ./chromeos/scripts/prepareconfig container-vm-x86_64
     make LLVM=1 LLVM_IAS=1 olddefconfig
 
-    echo -e "${YELLOW}cd ${PWD} &&make LLVM=1 LLVM_IAS=1 menuconfig ${NC}"
-    echo -e "${YELLOW}Press <Enter> to continue:${NC}"
+    # Setup kernel configuration for Binder IPC
+    echo
+    echo -e "${YELLOW}Manual configuration of kernel build configuration required.${NC}"
+    echo -e "${YELLOW}Follow these steps: https://github.com/neilgfoster/cros-android?tab=readme-ov-file#prepare-kernel-build-configuration${NC}"
+    echo -ne "${YELLOW}Press <Enter> to continue: ${NC}"
     read -r dummy < /dev/tty
+    echo
 
     # Build the kernel
     make LLVM=1 LLVM_IAS=1 bzImage -j$(nproc)
 
     # Copy the kernel image to home directory
     mkdir -p ~/kernels
-    cp arch/x86/boot/bzImage ~/kernels/binder-ipc-kernel.img
+    cp arch/x86/boot/bzImage ~/kernels/custom-kernel.img
 
-    echo -e "${GREEN}cd ${PWD} Kernel built successfully and output to ~/kernels/binder-ipc-kernel.img ${NC}"
-    echo -e "${YELLOW}Press <Enter> to continue:${NC}"
+    # Inform the user of success
+    echo
+    echo -e "${YELLOW}Kernel build complete${NC}"
+    echo -e "${YELLOW}Kernel image location: ~/kernels/kernel.img ${NC}"
+    echo -e "${YELLOW}Manual steps required to use this kernel for Linux .${NC}"
+    echo -e "${YELLOW}Follow these steps to set the custom kernel: ${NC}"
+    echo -e "${YELLOW}This will restart the Linux environment, so can be done after any other setup steps are complete.${NC}"
+    echo -ne "${YELLOW}Press <Enter> to continue: ${NC}"
     read -r dummy < /dev/tty
 
   fi
