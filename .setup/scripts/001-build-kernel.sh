@@ -65,6 +65,11 @@ if ! zcat /proc/config.gz 2>/dev/null | grep -q '^CONFIG_ANDROID_BINDER_IPC=y'; 
 
     # Copy the kernel image to home directory
     mkdir -p ~/kernels
-    cp arch/x86/boot/bzImage ~/kernels/waydroid
+    cp arch/x86/boot/bzImage ~/kernels/binder-ipc-kernel.img
+
+    echo -e "${GREEN}cd ${PWD} Kernel built successfully and output to ~/kernels/binder-ipc-kernel.img ${NC}"
+    echo -e "${YELLOW}Press <Enter> to continue:${NC}"
+    read -r dummy < /dev/tty
+
   fi
 fi
