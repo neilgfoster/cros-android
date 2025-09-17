@@ -65,7 +65,12 @@ if zgrep -q 'CONFIG_ANDROID_BINDERFS=y' /proc/config.gz; then
   build_kernel=${build_kernel:-Y}
   if [[ $build_kernel =~ ^[Yy]$ ]]; then
 
+    # Install dependencies
+    sudo apt upgrade -y
+    sudo apt install -y \
+      lxc
 
+    # Setup LXD if not already installed
     echo -e '${YELLOW}Setting up character/block device permission for the container...${NC}'
     lxc config set penguin security.privileged true
     lxc config set penguin raw.lxc - <<EOF
