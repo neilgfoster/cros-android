@@ -8,7 +8,7 @@ set -e
 KERNEL_VERSION="chromeos-6.6"
 
 # Check for Binder IPC support in running kernel
-if ! zcat /proc/config.gz 2>/dev/null | grep -q '^CONFIG_ANDROID_BINDER_IPC=y'; then
+if ! zgrep -q 'CONFIG_ANDROID_BINDERFS=y' /proc/config.gz; then
 
   # Prompt for install
   echo
