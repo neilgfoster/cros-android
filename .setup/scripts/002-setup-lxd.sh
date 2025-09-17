@@ -72,6 +72,7 @@ if zgrep -q 'CONFIG_ANDROID_BINDERFS=y' /proc/config.gz; then
 
     # Setup LXD if not already installed
     echo -e '${YELLOW}Setting up character/block device permission for the container...${NC}'
+    sudo lxc init penguin
     sudo lxc config set penguin security.privileged true
     sudo lxc config set penguin raw.lxc - <<EOF
 lxc.cgroup.devices.allow = c 241:* rwm
